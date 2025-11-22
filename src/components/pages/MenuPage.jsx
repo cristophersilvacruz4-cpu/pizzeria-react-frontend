@@ -1,37 +1,32 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function MenuPage() {
-  const [productos, setProductos] = useState([]);
-
-  useEffect(() => {
-    // Aquí puedes reemplazar por una API si luego agregas backend
-    setProductos([
-      {
-        id: 1,
-        nombre: "Pizza Pepperoni",
-        descripcion: "Clásica y deliciosa con abundante pepperoni.",
-        precio: 29.90,
-        imagen:
-          "https://cdn-icons-png.flaticon.com/512/3595/3595455.png",
-      },
-      {
-        id: 2,
-        nombre: "Pizza Hawaiana",
-        descripcion: "Jamón, piña y queso mozzarella.",
-        precio: 31.90,
-        imagen:
-          "https://cdn-icons-png.flaticon.com/512/3595/3595450.png",
-      },
-      {
-        id: 3,
-        nombre: "Pizza 4 Quesos",
-        descripcion: "Mezcla perfecta de quesos premium.",
-        precio: 32.50,
-        imagen:
-          "https://cdn-icons-png.flaticon.com/512/3595/3595444.png",
-      },
-    ]);
-  }, []);
+  const [productos] = useState([
+    {
+      id: 1,
+      nombre: "Pizza Pepperoni",
+      descripcion: "Clásica y deliciosa con abundante pepperoni.",
+      precio: 29.90,
+      imagen:
+        "https://cdn-icons-png.flaticon.com/512/3595/3595455.png",
+    },
+    {
+      id: 2,
+      nombre: "Pizza Hawaiana",
+      descripcion: "Jamón, piña y queso mozzarella.",
+      precio: 31.90,
+      imagen:
+        "https://cdn-icons-png.flaticon.com/512/3595/3595450.png",
+    },
+    {
+      id: 3,
+      nombre: "Pizza 4 Quesos",
+      descripcion: "Mezcla perfecta de quesos premium.",
+      precio: 32.50,
+      imagen:
+        "https://cdn-icons-png.flaticon.com/512/3595/3595444.png",
+    },
+  ]);
 
   return (
     <div className="px-5 pt-10 pb-20">

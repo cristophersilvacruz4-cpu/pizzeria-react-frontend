@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Trash2, Plus, Minus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function CarritoPage() {
+  const navigate = useNavigate();
+
   const [carrito, setCarrito] = useState([
     {
       id: 1,
@@ -19,38 +22,45 @@ function CarritoPage() {
     },
   ]);
 
-  // Aumentar cantidad
   const incrementar = (id) => {
-    setCarrito((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
+    setCarrito(prev =>
+      prev.map(item =>
+        item.id === id
+          ? { ...item, cantidad: item.cantidad + 1 }
+          : item
       )
     );
   };
 
-  // Disminuir cantidad
   const disminuir = (id) => {
-    setCarrito((prev) =>
+    setCarrito(prev =>
       prev
-        .map((item) =>
+        .map(item =>
           item.id === id && item.cantidad > 1
             ? { ...item, cantidad: item.cantidad - 1 }
             : item
         )
-        .filter((item) => item.cantidad > 0)
+        .filter(item => item.cantidad > 0)
     );
   };
 
-  // Eliminar producto
   const eliminar = (id) => {
-    setCarrito((prev) => prev.filter((item) => item.id !== id));
+    setCarrito(prev => prev.filter(item => item.id !== id));
   };
 
-  // Calcular total
   const total = carrito.reduce(
     (acc, item) => acc + item.precio * item.cantidad,
     0
   );
+
+  const irAPedirAhora = () => {
+    navigate("/pedir-ahora", {
+      state: {
+        carrito: carrito,
+        total: total,
+      }
+    });
+  };
 
   return (
     <div className="px-6 pt-10 pb-20 max-w-4xl mx-auto">
@@ -62,28 +72,23 @@ function CarritoPage() {
         </p>
       ) : (
         <div className="space-y-6">
-          {carrito.map((item) => (
+          {carrito.map(item => (
             <div
               key={item.id}
               className="flex items-center justify-between bg-white p-4 rounded-2xl shadow-lg"
             >
-              {/* Imagen */}
               <img
                 src={item.imagen}
                 alt={item.nombre}
                 className="w-20 h-20 object-contain"
               />
 
-              {/* Info */}
               <div className="flex-1 px-4">
                 <h2 className="text-xl font-bold">{item.nombre}</h2>
                 <p className="text-gray-600">S/ {item.precio.toFixed(2)}</p>
               </div>
 
-              {/* Controles */}
               <div className="flex items-center gap-3">
-
-                {/* Disminuir */}
                 <button
                   onClick={() => disminuir(item.id)}
                   className="p-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"
@@ -93,7 +98,6 @@ function CarritoPage() {
 
                 <span className="font-bold text-lg">{item.cantidad}</span>
 
-                {/* Aumentar */}
                 <button
                   onClick={() => incrementar(item.id)}
                   className="p-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"
@@ -102,7 +106,6 @@ function CarritoPage() {
                 </button>
               </div>
 
-              {/* Eliminar */}
               <button
                 onClick={() => eliminar(item.id)}
                 className="ml-4 text-red-600 hover:text-red-800 transition"
@@ -118,10 +121,13 @@ function CarritoPage() {
               Total: S/ {total.toFixed(2)}
             </h2>
 
-            <button className="
-              w-full bg-yellow-500 text-black py-3 mt-4 rounded-xl font-semibold 
-              hover:bg-yellow-600 transition shadow-md
-            ">
+            <button
+              onClick={irAPedirAhora}
+              className="
+                w-full bg-yellow-500 text-black py-3 mt-4 rounded-xl font-semibold 
+                hover:bg-yellow-600 transition shadow-md
+              "
+            >
               Ir a Pedir Ahora
             </button>
           </div>
