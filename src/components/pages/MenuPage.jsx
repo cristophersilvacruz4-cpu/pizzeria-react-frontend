@@ -56,6 +56,7 @@ function MenuPage() {
               S/ {item.precio.toFixed(2)}
             </p>
 
+
             <button className="w-full bg-red-600 text-white py-2 rounded-xl font-semibold hover:bg-red-700 transition">
               Agregar al carrito
             </button>
